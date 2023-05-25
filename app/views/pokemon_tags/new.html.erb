@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <h2>Add a New Tag To Your Pokemon</h2>
+      <%= simple_form_for([@pokemon, @pokemon_tag]) do |f| %>
+        <%= f.input :tag, collection: Tag.all, input_html: { multiple: true, class: 'mu;tiple-select', data: { controller: 'tom-select'} } %>
+        <%= f.submit "Add Tag", class: 'btn btn-primary' %>
+      <% end %>
+    </div>
+  </div>
+</div>

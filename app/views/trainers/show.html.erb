@@ -1,0 +1,45 @@
+<div class="banner" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= @trainer.banner_url %>);">
+  <div class="container">
+    <h1><%= @trainer.name %></h1>
+  </div>
+</div>
+
+<div class="container mt-3">
+  <div class="row">
+    <div class="col-8">
+      <div class="cards mb-3">
+        <% @trainer.pokemons.each do |pokemon| %>
+          <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(<%= pokemon.image_url %>)">
+            <%= pokemon.name %>
+            <%= link_to '+', pokemon_path(pokemon), data: { turbo_method: :delete, turbo_confirm: "Release #{pokemon.name}?"}, class: 'card__remove-link' %>
+            <div class="card-tags">
+              <% pokemon.tags.each do |tag| %>
+                <span><%= tag.name %></span>
+              <% end %>
+              <%= link_to "+", new_pokemon_pokemon_tag_path(pokemon)  %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="col-4">
+      <h4>Add a Pokemon</h4>
+      <%= simple_form_for([@trainer, @pokemon]) do |f| %>
+        <%= f.input :name %>
+        <%= f.input :image_url %>
+        <%= f.submit %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+
+
+<p style="color: green"><%= notice %></p>
+
+<div>
+  <%= link_to "Edit this trainer", edit_trainer_path(@trainer) %> |
+  <%= link_to "Back to trainers", trainers_path %>
+
+  <%= button_to "Destroy this trainer", @trainer, method: :delete %>
+</div>
